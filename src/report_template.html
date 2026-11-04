@@ -1,0 +1,338 @@
+<title>Little Joys Creator Picks</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (answer first, evidence after), wide tables scroll inside their own box. */
+:root{
+  --bg:#F6F7F4; --surface:#FFFFFF; --fg:#1C2420; --muted:#5B6660; --line:#DDE2DD; --soft:#EEF1EC;
+  --accent:#13866D; --accent-ink:#0C5A49; --amber:#C77A0E;
+  --good:#2E7D4F; --warn:#9A6A00; --bad:#B23A3A; --good-bg:#E4F2E9; --warn-bg:#FBF0D9; --bad-bg:#F8E3E1;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Public Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111613; --surface:#18201C; --fg:#E6ECE8; --muted:#9AA6A0; --line:#2C3631; --soft:#1F2924;
+  --accent:#2FA585; --accent-ink:#7FD8BE; --amber:#C9842A;
+  --good:#6FCB94; --warn:#E3B54F; --bad:#EE8A84; --good-bg:#1D3326; --warn-bg:#352B14; --bad-bg:#3A1F1E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111613; --surface:#18201C; --fg:#E6ECE8; --muted:#9AA6A0; --line:#2C3631; --soft:#1F2924;
+  --accent:#2FA585; --accent-ink:#7FD8BE; --amber:#C9842A;
+  --good:#6FCB94; --warn:#E3B54F; --bad:#EE8A84; --good-bg:#1D3326; --warn-bg:#352B14; --bad-bg:#3A1F1E; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 var(--f-body);margin:0}
+.wrap{max-width:980px;margin:0 auto;padding-block:40px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:56px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,44px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:26px;font-weight:700}
+h3{font-size:19px;font-weight:700}
+p{margin:0;max-width:68ch}
+a{color:var(--accent-ink)}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:18px;color:var(--fg)}
+.muted{color:var(--muted)}
+.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+section{display:grid;gap:18px}
+.stack{display:grid;gap:12px}
+header{display:grid;gap:16px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--muted)}
+
+/* KPI strip */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.kpi{background:var(--surface);padding:14px 16px;display:grid;gap:4px}
+.kpi b{font:500 22px/1.1 var(--f-mono);font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted);line-height:1.35}
+
+/* Picks */
+.picks{display:grid;gap:14px}
+.pick{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.pick>summary{list-style:none;cursor:pointer;padding:18px 18px 16px;display:grid;grid-template-columns:44px 1fr auto;gap:4px 14px;align-items:start}
+.pick>summary::-webkit-details-marker{display:none}
+.rank{font:700 30px/1 var(--f-display);color:var(--accent)}
+.who{display:grid;gap:4px;min-width:0}
+.who .handle{font:700 19px/1.2 var(--f-display)}
+.who .why{color:var(--muted);font-size:14px}
+.chev{font:500 12px var(--f-mono);color:var(--muted);white-space:nowrap;padding-top:6px}
+.pick[open] .chev .o{display:none}.pick:not([open]) .chev .c{display:none}
+.facts{grid-column:2/4;display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font:500 12px/1 var(--f-mono);padding:5px 8px;border-radius:999px;background:var(--soft);color:var(--fg);white-space:nowrap}
+.chip.role{background:var(--accent);color:var(--surface)}
+.chip.good{background:var(--good-bg);color:var(--good)}.chip.warn{background:var(--warn-bg);color:var(--warn)}.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.brief{border-top:1px solid var(--line);padding:18px;display:grid;gap:18px}
+.brief .row{display:grid;grid-template-columns:150px 1fr;gap:6px 18px}
+.brief .row>div:first-child{font:500 12px/1.6 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.hook{font:600 17px/1.45 var(--f-body);border-left:3px solid var(--accent);padding-left:12px}
+ol.beats{margin:0;padding-left:20px;display:grid;gap:4px}
+.claims{display:flex;flex-wrap:wrap;gap:6px}
+.claim{font-size:13px;border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--bg)}
+.claim::before{content:"✓ ";color:var(--good);font-weight:600}
+ul.watch{margin:0;padding-left:18px;display:grid;gap:4px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 11.5px/1.3 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--soft);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* hold list */
+.hold{display:grid;gap:10px}
+.hold div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:4px}
+
+/* sensitivity */
+.sens{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:14px}
+.slider{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.slider input{width:min(320px,100%);accent-color:var(--accent)}
+.lineup{display:flex;flex-wrap:wrap;gap:8px}
+.lineup span{font:500 13px var(--f-mono);padding:6px 10px;border-radius:8px;border:1px solid var(--line)}
+.lineup span.same{background:var(--good-bg);border-color:transparent}
+.lineup span.new{background:var(--warn-bg);border-color:transparent}
+
+/* chart */
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 12px 10px;position:relative}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted);padding:0 6px 10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.tip{position:absolute;pointer-events:none;background:var(--fg);color:var(--bg);font-size:12.5px;line-height:1.45;padding:8px 10px;border-radius:8px;max-width:280px;z-index:5}
+.verdict{font:500 11.5px/1.3 var(--f-mono);padding:4px 7px;border-radius:5px;display:inline-block;max-width:170px}
+#ptable td:first-child{min-width:230px}#ptable td:last-child{min-width:220px}
+.v-good{background:var(--good-bg);color:var(--good)}.v-warn{background:var(--warn-bg);color:var(--warn)}.v-bad{background:var(--bad-bg);color:var(--bad)}.v-neutral{background:var(--soft);color:var(--muted)}
+
+/* creators table bars */
+.bar{display:flex;align-items:center;gap:8px;min-width:120px}
+.bar i{display:block;height:8px;border-radius:0 4px 4px 0;background:var(--accent)}
+.bar.reach i{background:var(--amber)}
+.bar b{font:400 12.5px var(--f-mono);font-variant-numeric:tabular-nums;width:30px;text-align:right}
+.status{font-size:12.5px;line-height:1.4}
+.callout{background:var(--soft);border-radius:10px;padding:14px 16px;display:grid;gap:6px}
+.audit{display:grid;gap:10px}
+.audit details{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.audit summary{cursor:pointer;padding:12px 14px;font-weight:600}
+.audit details>div{padding:0 14px 14px;display:grid;gap:8px;color:var(--fg)}
+footer{font-size:13px;color:var(--muted);display:grid;gap:6px}
+@media (max-width:640px){
+  .pick>summary{grid-template-columns:34px 1fr}
+  .chev{display:none}.facts{grid-column:1/3}
+  .brief .row{grid-template-columns:1fr}
+  .rank{font-size:24px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Little Joys · creator plan · built from 100 ads and 20 creator feeds</div>
+  <h1>Which 5 creators should Little Joys work with next, and what should each of them say?</h1>
+  <p class="lede" id="lede"></p>
+  <div class="meta"><span>Data: brand ad export to 26 Oct 2026 · creator posts to 27 Oct 2026</span><span>Ad performance numbers are the exercise's made-up export</span></div>
+</header>
+
+<section>
+  <div class="eyebrow">The answer</div>
+  <h2>Sign these five</h2>
+  <p class="muted">Open each one for the brief: what to say, which claims to use, which winning ad to copy, and what to watch. Every claim in a brief already appears in a Little Joys ad.</p>
+  <div class="picks" id="picks"></div>
+</section>
+
+<section>
+  <h3>Strong fits we're not recommending yet</h3>
+  <div class="hold" id="hold"></div>
+</section>
+
+<section>
+  <div class="eyebrow">How sure are we</div>
+  <h2>What changes if you weigh reach more</h2>
+  <p>Each creator gets two scores. <b>Fit</b> asks whether they can make the kind of video that sells in your account. <b>Reach</b> is how many plays their paid posts get. We weight fit at 70% because you put ad spend behind creator videos, so the video matters more than the creator's own follower count. Move the slider to see what changes.</p>
+  <div class="sens">
+    <div class="slider"><label for="w">Fit weight <b class="num" id="wv"></b></label><input id="w" type="range" min="0.5" max="0.9" step="0.1" value="0.7"><span class="muted" style="font-size:13px">Reach weight is the rest</span></div>
+    <div class="lineup" id="lineup"></div>
+    <p class="muted" id="senstext" style="font-size:14px"></p>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">The evidence</div>
+  <h2>What sells in your own ads</h2>
+  <p>We compared ads that do each thing with ads that don't. One ad (<a id="topad" target="_blank" rel="noopener">LJ-004</a>) brought in <b id="topshare"></b> of all revenue, so we also check every pattern <i>without</i> it, and with a model that holds the other patterns and launch month fixed. A pattern counts as <b>Strong</b> only if it holds on all of these checks.</p>
+  <div class="kpis" id="kpis"></div>
+  <div class="chart" id="chart">
+    <div class="legend"><span><i style="background:var(--accent)"></i>Ads that do it</span><span><i style="background:transparent;border:2px solid var(--amber)"></i>Ads that don't</span><span>Median ROAS per ad (revenue ÷ spend). Hover or tap a row for detail.</span></div>
+    <svg id="dots" role="img" aria-label="Median ROAS with and without each pattern"></svg>
+  </div>
+  <div class="tbl"><table id="ptable"></table></div>
+</section>
+
+<section>
+  <div class="eyebrow">All 20 creators</div>
+  <h2>How every creator scored</h2>
+  <p class="muted">Fit is out of 100: a child presenting (40), English or Hinglish speech (20), kids aged 3 to 12 on camera (20), food or routine posts (20). Weights follow how strong each pattern is in the ads. Reach is out of 100 on a log scale from 10k to 3M expected plays for a paid post. Blocks are the reasons we wouldn't sign someone now, whatever their score.</p>
+  <div class="tbl"><table id="ctable"></table></div>
+</section>
+
+<section>
+  <div class="eyebrow">What we fixed, and what we don't trust</div>
+  <h2>Data checks</h2>
+  <div class="audit" id="audit"></div>
+</section>
+
+<section>
+  <div class="eyebrow">Next</div>
+  <h2>How to run the five</h2>
+  <div class="stack" id="next"></div>
+</section>
+
+<footer>
+  <div>Method: Python pipeline (pandas). Every number on this page is read from <span class="mono">out/results.json</span>, which <span class="mono">python src/run.py</span> rebuilds. Tests check that brief claims exist in your ads and that the numbers written into the briefs match the data.</div>
+</footer>
+</div>
+
+<script id="data" type="application/json">/*DATA*/</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtK = n => n == null ? '–' : n >= 1e6 ? (n/1e6).toFixed(1)+'M' : n >= 1e3 ? Math.round(n/1e3)+'k' : String(Math.round(n));
+const inr = n => '₹' + (n >= 1e5 ? (n/1e5).toFixed(1) + 'L' : Math.round(n).toLocaleString('en-IN'));
+const pct = x => Math.round(x*100) + '%';
+const C = Object.fromEntries(D.creators.map(c => [c.handle, c]));
+const R = D.reference_ads;
+const A = D.audit;
+
+/* lede */
+$('#lede').textContent = `Sign ${D.picks.map(h => '@'+h).join(', ')}. They are the five, out of 20, best placed to make the one kind of ad that clearly sells in your account: a child talking to camera about their own food, in English or Hinglish, with a plain buy-now ask. None has promoted a rival kids' nutrition brand in the last 90 days.`;
+
+/* picks */
+$('#picks').innerHTML = D.picks.map((h, i) => {
+  const c = C[h], b = D.briefs[h];
+  const refs = b.reference_ads.map(id => R[id]).map(r => `<tr><td class="mono"><a href="${esc(r.video)}" target="_blank" rel="noopener">${r.ad_id}</a></td><td>${esc(r.hook)}</td><td>${esc(r.product)} · ${esc(r.language)}</td><td class="n">${r.roas.toFixed(2)}</td><td class="n">${r.cpa ? '₹'+Math.round(r.cpa) : '–'}</td></tr>`).join('');
+  return `<details class="pick" ${i===0?'open':''}>
+  <summary>
+    <div class="rank">${i+1}</div>
+    <div class="who"><div class="handle"><a href="${esc(c.profile_url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">@${esc(h)}</a> <span class="muted" style="font:400 14px var(--f-body)">${esc(c.name.split('|')[0])}</span></div>
+      <div class="why">${esc(b.why)}</div></div>
+    <div class="chev"><span class="o">Brief ▾</span><span class="c">Close ▴</span></div>
+    <div class="facts"><span class="chip role">${esc(b.role)}</span><span class="chip">Fit ${Math.round(c.fit)}</span><span class="chip">Reach ${Math.round(c.reach)}</span><span class="chip">~${fmtK(c.expected_sponsored_plays)} plays per paid post</span><span class="chip">Speaks ${esc(c.main_language)}</span><span class="chip">${esc(b.product.split('(')[0].trim())}</span></div>
+  </summary>
+  <div class="brief">
+    <div class="row"><div>Opening line</div><div class="hook">${esc(b.hook)}</div></div>
+    <div class="row"><div>Format</div><div>${esc(b.format)}</div></div>
+    <div class="row"><div>Product</div><div>${esc(b.product)}</div></div>
+    <div class="row"><div>Beats</div><ol class="beats">${b.beats.map(x=>`<li>${esc(x)}</li>`).join('')}</ol></div>
+    <div class="row"><div>Claims to use</div><div class="claims">${b.claims.map(x=>`<span class="claim">${esc(x)}</span>`).join('')}</div></div>
+    <div class="row"><div>Language</div><div>${esc(b.language)}</div></div>
+    <div class="row"><div>Don't</div><div>${esc(b.avoid)}</div></div>
+    <div class="row"><div>Copy the shape of</div><div class="tbl"><table><tr><th>Ad</th><th>Opening line</th><th>Product</th><th class="n">ROAS</th><th class="n">Cost / sale</th></tr>${refs}</table></div></div>
+    <div class="row"><div>Watch</div><ul class="watch">${b.watch.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+  </div></details>`;
+}).join('');
+
+/* on hold */
+$('#hold').innerHTML = Object.entries(D.on_hold).map(([h, t]) => `<div><b>@${esc(h)} <span class="muted" style="font-weight:400">· fit ${Math.round(C[h].fit)}, reach ${Math.round(C[h].reach)}</span></b><span>${esc(t)}</span></div>`).join('');
+
+/* sensitivity */
+function rankAt(w){
+  return D.creators.filter(c=>c.eligible).map(c=>({h:c.handle, s:w*c.fit+(1-w)*c.reach})).sort((a,b)=>b.s-a.s).slice(0,5).map(x=>x.h);
+}
+const stable = D.picks.filter(h => Object.values(D.sensitivity).every(l => l.includes(h)));
+const rot = [...new Set(Object.values(D.sensitivity).flat())].filter(h => !stable.includes(h));
+function drawSens(){
+  const w = +$('#w').value; $('#wv').textContent = Math.round(w*100)+'%';
+  const top = rankAt(w);
+  $('#lineup').innerHTML = top.map((h,i)=>`<span class="${D.picks.includes(h)?'same':'new'}">${i+1}. @${esc(h)}</span>`).join('');
+  $('#senstext').textContent = `Picked at every weight from 50% to 90%: ${stable.map(h=>'@'+h).join(', ')}. The other two slots rotate between ${rot.map(h=>'@'+h).join(', ')}, whose scores sit within about 1 point of each other. Treat those as interchangeable. Green = in our five, amber = swapped in.`;
+}
+$('#w').addEventListener('input', drawSens); drawSens();
+
+/* KPIs */
+const ex = D.audit;
+$('#topad').href = A.top_ad.video; $('#topshare').textContent = pct(A.top_ad.share_of_revenue);
+$('#kpis').innerHTML = [
+  [D.n_ads, 'ads analysed (' + D.n_ads_used + ' used for patterns; LJ-089 left out, see data checks)'],
+  [inr(A.total_spend), 'total ad spend'],
+  [A.blended_roas.toFixed(2), 'blended ROAS, all ads'],
+  [A.blended_roas_ex_top.toFixed(2), 'blended ROAS without LJ-004'],
+  [A.median_ad_roas.toFixed(2), 'median ROAS of a single ad'],
+  ['₹'+Math.round(A.median_cpa), 'median cost per purchase'],
+].map(([b,s])=>`<div class="kpi"><b>${b}</b><span>${esc(s)}</span></div>`).join('');
+
+/* dot chart */
+const vclass = v => /^Strong/.test(v) ? 'v-good' : /^Moderate|^Promising/.test(v) ? 'v-warn' : /against|^Weak/.test(v) ? 'v-bad' : 'v-neutral';
+(function chart(){
+  const P = D.patterns, svg = $('#dots');
+  const W = 900, rowH = 38, top = 26, left = 330, right = 30, H = top + P.length*rowH + 24;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const xmax = 2.0, xmin = 0.6;
+  const x = v => left + (Math.min(Math.max(v,xmin),xmax)-xmin)/(xmax-xmin)*(W-left-right);
+  let s = '';
+  for (let t = 0.6; t <= 2.0001; t += 0.2) {
+    s += `<line x1="${x(t)}" x2="${x(t)}" y1="${top-8}" y2="${H-24}" stroke="var(--line)" stroke-width="1"/>`;
+    s += `<text x="${x(t)}" y="${H-6}" text-anchor="middle" font-size="12" font-family="IBM Plex Mono, monospace" fill="var(--muted)">${t.toFixed(1)}</text>`;
+  }
+  const med = D.account.median_roas_used;
+  s += `<line x1="${x(med)}" x2="${x(med)}" y1="${top-14}" y2="${H-24}" stroke="var(--muted)" stroke-dasharray="3 3"/>`;
+  s += `<text x="${x(med)+4}" y="${top-14}" font-size="11.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace">account median ${med.toFixed(2)}</text>`;
+  P.forEach((p,i) => {
+    const y = top + i*rowH + rowH/2;
+    const label = p.pattern.length > 46 ? p.pattern.slice(0,44)+'…' : p.pattern;
+    s += `<g class="prow" data-i="${i}">`;
+    s += `<rect x="0" y="${y-rowH/2}" width="${W}" height="${rowH}" fill="transparent"/>`;
+    s += `<text x="0" y="${y+4}" font-size="13.5" fill="var(--fg)" font-family="Public Sans, sans-serif">${esc(label)}</text>`;
+    s += `<line x1="${x(p.median_without)}" x2="${x(p.median_with)}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width="3"/>`;
+    s += `<circle cx="${x(p.median_without)}" cy="${y}" r="6" fill="var(--surface)" stroke="var(--amber)" stroke-width="2.5"/>`;
+    s += `<circle cx="${x(p.median_with)}" cy="${y}" r="7" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"/>`;
+    s += `</g>`;
+  });
+  svg.innerHTML = s;
+  const tip = document.createElement('div'); tip.className = 'tip'; tip.hidden = true; $('#chart').appendChild(tip);
+  svg.querySelectorAll('.prow').forEach(g => {
+    const show = e => {
+      const p = P[+g.dataset.i]; const r = $('#chart').getBoundingClientRect();
+      tip.innerHTML = `<b>${esc(p.pattern)}</b><br>${p.n_with} ads vs ${p.n_without}<br>Median ROAS ${p.median_with.toFixed(2)} vs ${p.median_without.toFixed(2)}<br>Pooled ${p.roas_with.toFixed(2)} vs ${p.roas_without.toFixed(2)}<br>Pooled without top ad ${p.roas_with_ex_top.toFixed(2)} vs ${p.roas_without_ex_top.toFixed(2)}<br>Verdict: ${esc(p.verdict)}`;
+      tip.hidden = false;
+      const cx = (e.touches ? e.touches[0].clientX : e.clientX) - r.left, cy = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+      tip.style.left = Math.min(cx + 12, r.width - 290) + 'px'; tip.style.top = (cy + 14) + 'px';
+    };
+    g.addEventListener('mousemove', show); g.addEventListener('touchstart', show, {passive:true});
+    g.addEventListener('mouseleave', () => tip.hidden = true);
+  });
+})();
+
+/* pattern table */
+$('#ptable').innerHTML = `<tr><th>Pattern</th><th>Verdict</th><th class="n">Ads with / without</th><th class="n">Median ROAS</th><th class="n">Without top ad</th><th class="n">Model, ex LJ-004</th><th>What it means for a brief</th></tr>` +
+  D.patterns.map(p => `<tr><td>${esc(p.pattern)}</td><td><span class="verdict ${vclass(p.verdict)}">${esc(p.verdict)}</span></td><td class="n">${p.n_with} / ${p.n_without}</td><td class="n">${p.median_with.toFixed(2)} vs ${p.median_without.toFixed(2)}</td><td class="n">${p.roas_with_ex_top.toFixed(2)} vs ${p.roas_without_ex_top.toFixed(2)}</td><td class="n">${p.model_x_ex ? '×'+p.model_x_ex.toFixed(2) : '–'}</td><td>${esc(p.implication)}</td></tr>`).join('');
+
+/* creators table */
+function statusOf(c){
+  if (c.pick_rank) return `<span class="chip good">Pick #${c.pick_rank}</span>`;
+  if (D.on_hold[c.handle] && c.eligible) return `<span class="chip warn">Alternate</span>`;
+  if (c.gates.length) return `<span class="chip bad">Blocked</span><div class="status muted" style="margin-top:4px">${c.gates.map(esc).join('<br>')}</div>`;
+  return `<span class="chip">Lower score</span>`;
+}
+const bar = (v, cls='') => `<div class="bar ${cls}"><b>${Math.round(v)}</b><i style="width:${Math.max(2, v*0.9)}px"></i></div>`;
+$('#ctable').innerHTML = `<tr><th>Creator</th><th>Fit</th><th>Reach</th><th class="n">Score</th><th>Status</th><th>Speaks</th><th>Kids seen</th><th class="n">Followers</th></tr>` +
+  [...D.creators].sort((a,b)=> (a.pick_rank||99)-(b.pick_rank||99) || b.score-a.score).map(c => `<tr>
+    <td><a href="${esc(c.profile_url)}" target="_blank" rel="noopener">@${esc(c.handle)}</a><div class="muted" style="font-size:12.5px">${esc(c.persona)}</div>${c.notes.length?`<div class="status" style="margin-top:4px;color:var(--warn)">${c.notes.map(esc).join('<br>')}</div>`:''}</td>
+    <td>${bar(c.fit)}</td><td>${bar(c.reach,'reach')}</td><td class="n">${c.score.toFixed(1)}</td>
+    <td style="min-width:220px">${statusOf(c)}</td><td style="font-size:12.5px">${esc(c.languages || '–')}</td><td style="font-size:12.5px;min-width:120px">${esc(c.child_ages_seen || 'none')}</td><td class="n">${fmtK(c.followers)}</td></tr>`).join('');
+
+/* audit */
+const T = A.tracking_suspect;
+const dup = A.duplicate_creatives.map(d => `${d.video}: ${d.ads.join(' & ')} → ROAS ${d.roas.join(' vs ')}`).join('; ');
+const audits = [
+  ['One ad carries the account', `LJ-004 (a child showing her plate, with Proteinmix in her roti) made ${inr(A.top_ad.revenue)} of ${inr(A.total_revenue)} revenue (${pct(A.top_ad.share_of_revenue)}) at ROAS ${A.top_ad.roas.toFixed(2)}. Blended ROAS drops from ${A.blended_roas.toFixed(2)} to ${A.blended_roas_ex_top.toFixed(2)} without it. So we judge patterns on median ROAS and re-test each one with its top ad removed. Child-presenter ads still win without LJ-004.`],
+  ['LJ-089 looks like broken tracking, so we left it out', `${inr(T.spend)} spent, ${T.clicks.toLocaleString('en-IN')} clicks, ${T.carts.toLocaleString('en-IN')} add-to-carts, and exactly ${T.purchases} purchases. Each of the other ${T.others_with_100_carts} ads with 100+ carts turned at least ${pct(T.others_cart_to_buy_min)} of carts into purchases (median ${pct(T.others_cart_to_buy_median)}). Counting it would wrongly make skits look bad. Worth checking the pixel for that ad.`],
+  ['The same video can swing a lot', `Three videos ran as two separate ads each: ${dup}. Same creative, very different results, so no single ad's ROAS is proof. We only trust patterns that show up across many ads.`],
+  ['Labels we corrected', D.overrides.map(o => `<b>${esc(o.field)}</b> (${esc(o.handle)}): ${esc(o.problem)} <i>Fix:</i> ${esc(o.fix)}`).join('<br>') + `<br>Ads re-labelled as Proteinmix that were tagged milk mix: ${A.product_relabelled.join(', ')}. LJ-035, a top ad (ROAS 2.06), has no format or hook labels at all.`],
+  ['What the data can\'t tell us', `There is only ${A.doctor_ads} doctor-led ad, so there's no evidence either way on paediatrician creators. The five doctors in the list were blocked for other reasons (infant-only audiences, a rival brand, paid posts getting 5 to 14% of their usual plays). There are no Telugu or Gujarati ads, so the Telugu side of @storiesbyvihaa is a test. Audience data exists for only 3 of 20 creators. Instagram plays are real, but nothing here links a creator's organic reach to sales.`],
+  ['Smaller things', `${A.days_live_off_by_one} ads have days_live one less than stop minus launch date, which doesn't matter for this analysis. No ad is marked as still live, though the guide says a blank stop date means live. The opening-line pair LJ-050 vs LJ-081 (nearly the same script) got ROAS 2.74 vs 0.89. The winner opens with how much protein a 9-year-old needs. It's one pair, so treat it as a hint. Nutrimix protein numbers differ between ads (5g, 9g, "like 2 eggs") depending on the variant, so brand should confirm the number for each variant before a creator says it.`],
+];
+$('#audit').innerHTML = audits.map(([h,t],i)=>`<details ${i<2?'open':''}><summary>${esc(h)}</summary><div><p>${t}</p></div></details>`).join('');
+
+/* next */
+$('#next').innerHTML = [
+  `<p><b>Treat each creator as a paid test, not a bet.</b> Run each video as a paid partnership ad to parents. Spend about the median ad's spend (${inr(31737)}) before judging it, and read cost per purchase against the account median of ₹${Math.round(A.median_cpa)}.</p>`,
+  `<p><b>Shoot two openings per creator.</b> Child-first vs parent-first, or for @storiesbyvihaa English vs Telugu. That fills the two biggest gaps in the data cheaply.</p>`,
+  `<p><b>Before signing,</b> check exclusivity with @sia_3vedi (Gritzo, 28 Sep). She is the best fit of all 20. Also pull the results of the earlier @storiesbyvihaa collab, and confirm the Proteinmix age guidance for a 3-year-old before @hello_ps8 shoots.</p>`,
+].join('');
+</script>
